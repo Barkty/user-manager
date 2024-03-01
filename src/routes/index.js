@@ -1,4 +1,5 @@
 import { Router } from "express";
+import workerRoutes from "./workers.js"
 
 const router = Router();
 
@@ -8,5 +9,7 @@ router.get("/", (req, res) => {
     success: 1,
   });
 });
+
+router.use('/workers', workerRoutes)
 
 export default router;

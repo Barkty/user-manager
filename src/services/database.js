@@ -14,8 +14,6 @@ const { DATABASE_URL, DATABASE_NAME } = process.env
 export const connect = async (uri, dbName) => {
     if (mongoose.connection.readyState === 0) {
         mongoose.connect(uri, {
-            useNewUrlParser: true,
-            useUnifiedTopology: true,
             dbName
         });
         console.log("Connected to database");

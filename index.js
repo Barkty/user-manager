@@ -1,5 +1,5 @@
-import { connectDB } from "./services/database"
-import server from "./server"
+import server from "./server.js"
+import { connectDB } from "./src/services/database.js"
 
 let { PORT } = process.env
 
@@ -8,10 +8,6 @@ const serverStart = async () => {
         // Open MongoDB Connection
 
         await connectDB()
-
-        if (PORT == '' || PORT == null) {
-            PORT = 8069
-        }
 
         server.listen(PORT, ()=> {
             console.log(`Server is running on port ${PORT}`)

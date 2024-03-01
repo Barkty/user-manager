@@ -1,4 +1,5 @@
-import { error } from "../../helpers/response";
+import passport from "passport";
+import { error } from "../../helpers/response.js";
 
 export const validateUsersAuthRequest = (req, res, next) =>
   passport.authenticate("local", async (err, user) => {

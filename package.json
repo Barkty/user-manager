@@ -5,7 +5,7 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "dev": "npm run migrate:up && concurrently \"nodemon -q index.js\"",
+    "dev": "nodemon index.js",
     "pretest": "npm run migrate:up",
     "test": "cross-env NODE_ENV=test jest",
     "test:watch": "jest --watch",
