@@ -4,7 +4,6 @@ import mongooseAggregatePaginate from "mongoose-aggregate-paginate-v2";
 
 const schema = new Schema(
     {
-        id: { type: Number, required: true, unique: true },
         firstName: { type: String, required: true },
         lastName: { type: String, required: true },
         email: { type: String, required: false, unique: true, trim: true },

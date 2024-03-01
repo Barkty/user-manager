@@ -6,7 +6,6 @@ import dotenv from "dotenv";
 import paginator from "mongoose-paginate-v2";
 import morgan from "morgan";
 import helmet from "helmet";
-import passport from "passport";
 import authMiddleware from "./src/middlewares/authMidlleware.js"
 import notFound from './src/middlewares/notFound.js';
 import errorHandlerMiddleware from './src/middlewares/errorHandler.js';
@@ -29,13 +28,11 @@ app.use(cors(corsOptions));
 app.use(morgan("tiny"));
 app.use(helmet());
 
-app.use(passport.authenticate("local"));
-
 // Routes
-app.use(`/api/`, authMiddleware, routes);
+app.use(`/api`, authMiddleware, routes);
 
 // Use middlewares
 app.use(notFound);
-app.use(errorHandlerMiddleware);
+// app.use(errorHandlerMiddleware);
 
 export default server

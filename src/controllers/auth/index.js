@@ -1,9 +1,9 @@
 import passport from "passport";
-import LocalStrategy from "passport-local";
 import Worker from "../../models/worker.js";
 import { comparePassword, removePropertiesFromObject } from "../../utils/index.js";
 import { success } from "../../helpers/response.js";
 import asyncWrapper from "../../middlewares/async.js";
+import LocalStrategy from "passport-local";
 
 passport.use(
     new LocalStrategy({ usernameField: "email" }, async (email, password, done) => {
@@ -17,11 +17,12 @@ passport.use(
   
         await Worker.updateOne({ staffId }, { $set: { lastLogin: new Date() } });
   
-        let loggedInUser = await Worker.findOne({ email }).populate("currentStation jobTitle department").lean();
+        let loggedInUser = await Worker.findOne({ email }).populate("supervisor levelOne levelTwo").lean();
   
         loggedInUser = removePropertiesFromObject(loggedInUser, ["password", "token", "tokenExpiresIn"]);
   
         return done(null, loggedInUser);
+
       } catch (e) {
         return done(e);
       }

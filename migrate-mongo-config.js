@@ -2,10 +2,12 @@
 import dotenv from 'dotenv';
 dotenv.config()
 
-const config = {
+const { DATABASE_NAME, DATABASE_NAME_TEST, DATABASE_URL } = process.env
+
+export const config = {
   mongodb: {
     // TODO Change (or review) the url to your MongoDB:
-    url: process.env.DATABASE_URL,
+    url: "mongodb://127.0.0.1:27017/",
 
     // TODO Change this to your database name:
     databaseName: process.env.NODE_ENV === 'test' ? process.env.DATABASE_NAME_TEST : process.env.DATABASE_NAME,
@@ -32,7 +34,5 @@ const config = {
   useFileHash: false,
 
   // Don't change this, unless you know what you're doing
-  moduleSystem: 'commonjs',
+  moduleSystem: 'commonjs'
 };
-
-module.exports = config;

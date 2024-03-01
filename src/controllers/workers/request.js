@@ -1,13 +1,13 @@
 import Joi from "joi";
-import { error } from "../../helpers/response";
-import asyncWrapper from "../../middlewares/async";
-import Worker from "../../models/worker";
-import { BadRequestError } from "../../utils/error.js";
+import { error } from "../../helpers/response.js";
+import asyncWrapper from "../../middlewares/async.js";
+import Worker from "../../models/worker.js";
+import { BadRequestError } from "../../utils/error/index.js";
 import { createCustomError } from "../../utils/error/index.js";
 import { RESOURCE_ERROR_MESSAGE } from "../../config/constants.js";
 
 export const createWorkerSchema = Joi.object({
-    id: Joi.number().required(),
+    levelOne: Joi.number().required(),
     firstName: Joi.string().required(),
     lastName: Joi.string().required(),
     email: Joi.string().email().required(),
@@ -33,10 +33,18 @@ export const checkIfWorkerWithEmailExists = asyncWrapper(async (req, res, next) 
 
 export const calculateOtherLevelWorkers = asyncWrapper(async (req, res, next) => {
     try {
-        const { body } = req
-        // Check if a worker with email exists
+        const { body: { levelOne } } = req
+
+        const levelOneWorker = await Worker.findById({ _id: levelOne }).populate("levelOne")
+
+        const levelThreeWorker = await Worker.findById({ _id: levelOneWorker.levelOne.levelOne })
+
+        req.body.levelTwo = levelOneWorker.levelOne.levelOne._id || null
+
+        req.body.levelThree = levelThreeWorker._id || null
+
         return next()
     } catch (e) {
-        return error(res, e?.statusCode || 500, e, data)
+        return error(res, e?.statusCode || 500, e)
     }
 })

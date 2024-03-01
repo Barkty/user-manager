@@ -1,7 +1,7 @@
 import passport from "passport";
 import { error } from "../../helpers/response.js";
-
 import jwt from 'jsonwebtoken'
+import Joi from "joi";
 
 const { JWT_SECRET } = process.env
 
@@ -28,3 +28,8 @@ export const validateUsersAuthRequest = (req, res, next) =>
       return next();
     });
   })(req, res, next);
+
+export const loginSchema = Joi.object({
+  email: Joi.string().required(),
+  password: Joi.string().required()
+});

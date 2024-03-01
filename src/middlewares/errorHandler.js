@@ -19,6 +19,13 @@ const errorHandlerMiddleware = (err, req, res, next) => {
   }
   // eslint-disable-next-line no-console
   console.log(err);
+  if (err.message === "User dooes not exist") {
+    return error(res, 404, err.message)
+  }
+  
+  if (err.message === "Invalid Credentials") {
+    return error(res, 400, err.message)
+  }
   return error(res, 500, "Network Error");
 };
 

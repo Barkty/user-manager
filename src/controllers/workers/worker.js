@@ -1,6 +1,6 @@
 import { error, success } from "../../helpers/response.js";
 import asyncWrapper from "../../middlewares/async.js";
-import Worker from "../../models/worker";
+import Worker from "../../models/worker.js";
 
 export const createWorker = asyncWrapper(async (req, res) => {
     try {
