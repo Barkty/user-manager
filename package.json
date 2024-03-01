@@ -1,0 +1,46 @@
+{
+  "name": "user-manager",
+  "version": "1.0.0",
+  "description": "User management system with Mongodb and Nodejs",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "dev": "npm run migrate:up && concurrently \"nodemon -q index.js\"",
+    "pretest": "npm run migrate:up",
+    "test": "cross-env NODE_ENV=test jest",
+    "test:watch": "jest --watch",
+    "test:detect": "jest --detectOpenHandles --verbose",
+    "posttest": "npm run migrate:down",
+    "prestart": "npm run migrate:up",
+    "start": "node index.js",
+    "migrate:up": "migrate-mongo up",
+    "migrate:down": "migrate-mongo down"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "compression": "^1.7.4",
+    "cors": "^2.8.5",
+    "cross-env": "^7.0.3",
+    "dotenv": "^16.4.5",
+    "express": "^4.18.3",
+    "express-joi-validation": "^5.0.1",
+    "helmet": "^7.1.0",
+    "joi": "^17.12.2",
+    "jsonwebtoken": "^9.0.2",
+    "migrate-mongo": "^11.0.0",
+    "mongoose": "^8.2.0",
+    "mongoose-aggregate-paginate-v2": "^1.0.7",
+    "mongoose-paginate-v2": "^1.8.0",
+    "morgan": "^1.10.0",
+    "passport": "^0.7.0",
+    "passport-local": "^1.0.0"
+  },
+  "devDependencies": {
+    "@faker-js/faker": "^8.4.1",
+    "chai": "^5.1.0",
+    "nodemon": "^3.1.0",
+    "sinon": "^17.0.1",
+    "supertest": "^6.3.4"
+  }
+}
