@@ -16,7 +16,9 @@ const schema = new Schema(
         street: { type: String },
         location: { type: String },
         isSuperCommissionApproved: { type: Boolean },
-        iban: { type: Number }
+        iban: { type: Number },
+        lastLogin: { type: Date },
+        deletedDate: { type: "Date", default: null }
     },
     { toJSON: { virtuals: true }, toObject: { virtuals: true }, timestamps: true }
 )
