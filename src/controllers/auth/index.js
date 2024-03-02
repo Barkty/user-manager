@@ -4,6 +4,7 @@ import { comparePassword, removePropertiesFromObject } from "../../utils/index.j
 import { success } from "../../helpers/response.js";
 import asyncWrapper from "../../middlewares/async.js";
 import LocalStrategy from "passport-local";
+import { payload } from "./request.js";
 
 passport.use(
     new LocalStrategy({ usernameField: "email" }, async (email, password, done) => {
@@ -19,7 +20,9 @@ passport.use(
   
         let loggedInUser = await Worker.findOne({ email }).populate("supervisor levelOne levelTwo").lean();
   
-        loggedInUser = removePropertiesFromObject(loggedInUser, ["password", "token", "tokenExpiresIn"]);
+        loggedInUser = removePropertiesFromObject(loggedInUser, ["password"]);
+
+        loggedInUser = payload(loggedInUser)
   
         return done(null, loggedInUser);
 

@@ -7,7 +7,7 @@
   "scripts": {
     "dev": "nodemon index.js",
     "pretest": "npm run migrate:up",
-    "test": "cross-env NODE_ENV=test jest",
+    "test": "cross-env NODE_ENV=test mocha",
     "test:watch": "jest --watch",
     "test:detect": "jest --detectOpenHandles --verbose",
     "posttest": "npm run migrate:down",
