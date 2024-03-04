@@ -1,14 +1,18 @@
 import passport from "passport";
-import { error } from "../../helpers/response.js";
 import jwt from 'jsonwebtoken'
 import Joi from "joi";
+import { configDotenv } from "dotenv";
+import { error } from "../../helpers/response.js";
+
+configDotenv()
 
 const { JWT_SECRET } = process.env
 
 export const payload = (user) => {
-    const token = jwt.sign({ _id: user._id, email: user.email, phone: user.phone }, JWT_SECRET, {
+    const token = jwt.sign({ _id: user._id, email: user.email, firstName: user.firstName}, JWT_SECRET, {
       expiresIn: 1 * 60 * 60 * 1000,
-      issuer: "Nomar Technologies"
+      issuer: "Nomar Technologies",
+      audience: "https://nomar.ng"
     });
 
     delete user.password

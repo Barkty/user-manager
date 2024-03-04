@@ -3,7 +3,7 @@ import { error, success } from "../../helpers/response.js";
 import asyncWrapper from "../../middlewares/async.js";
 import Worker from "../../models/worker.js";
 import { generateHashString } from "../../utils/index.js";
-import { generateFilter } from "./request.js";
+import { generateFilter, populants } from "./request.js";
 
 export const createWorker = asyncWrapper(async (req, res) => {
     try {
@@ -11,9 +11,7 @@ export const createWorker = asyncWrapper(async (req, res) => {
 
         body.password = generateHashString(body.password)
 
-        let user = await new Worker(body).save()
-
-        user = payload(user);
+        const user = await new Worker(body).save()
 
         return success(res, 201, user)
 
@@ -47,6 +45,16 @@ export const fetchWorkers = asyncWrapper(async (req, res) => {
         const workers = await paginate(options);
 
         return success(res, 200, workers)
+    } catch (e) {
+        return error(res, e?.statusCode || 500, e)
+    }
+})
+
+export const fetchWorker = asyncWrapper(async (req, res) => {
+    try {
+        const { locals: { worker } } = req
+
+        return success(res, 200, worker)
     } catch (e) {
         return error(res, e?.statusCode || 500, e)
     }

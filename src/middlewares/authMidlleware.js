@@ -1,8 +1,11 @@
+import { configDotenv } from "dotenv";
+import jwt from "jsonwebtoken";
 import { OPEN_ROUTES } from "../config/constants.js";
 import { error } from "../helpers/response.js";
 import Worker from "../models/worker.js";
 import asyncWrapper from "./async.js";
-import jwt from "jsonwebtoken";
+
+configDotenv()
 
 const { JWT_SECRET } = process.env
 

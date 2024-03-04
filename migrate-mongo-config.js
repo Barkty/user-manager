@@ -2,15 +2,15 @@
 import dotenv from 'dotenv';
 dotenv.config()
 
-const { DATABASE_NAME, DATABASE_NAME_TEST, DATABASE_URL } = process.env
+const { DATABASE_NAME, DATABASE_URL, NODE_ENV, DATABASE_NAME_TEST } = process.env
 
-export const config = {
+const config = {
   mongodb: {
     // TODO Change (or review) the url to your MongoDB:
-    url: "mongodb://127.0.0.1:27017/",
+    url: DATABASE_URL,
 
     // TODO Change this to your database name:
-    databaseName: process.env.NODE_ENV === 'test' ? process.env.DATABASE_NAME_TEST : process.env.DATABASE_NAME,
+    databaseName: NODE_ENV === 'test' ? DATABASE_NAME_TEST : DATABASE_NAME,
 
     options: {
       useNewUrlParser: true, // removes a deprecation warning when connecting
@@ -34,5 +34,7 @@ export const config = {
   useFileHash: false,
 
   // Don't change this, unless you know what you're doing
-  moduleSystem: 'commonjs'
+  moduleSystem: 'esm'
 };
+
+export default config

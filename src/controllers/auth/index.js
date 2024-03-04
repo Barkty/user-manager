@@ -1,9 +1,9 @@
 import passport from "passport";
+import LocalStrategy from "passport-local";
 import Worker from "../../models/worker.js";
 import { comparePassword, removePropertiesFromObject } from "../../utils/index.js";
 import { success } from "../../helpers/response.js";
 import asyncWrapper from "../../middlewares/async.js";
-import LocalStrategy from "passport-local";
 import { payload } from "./request.js";
 
 passport.use(
@@ -16,14 +16,14 @@ passport.use(
   
         if (!isPasswordCorrect) return done({ message: "Invalid Credentials" });
   
-        await Worker.updateOne({ staffId }, { $set: { lastLogin: new Date() } });
+        await Worker.updateOne({ email }, { $set: { lastLogin: new Date() } });
   
         let loggedInUser = await Worker.findOne({ email }).populate("supervisor levelOne levelTwo").lean();
   
         loggedInUser = removePropertiesFromObject(loggedInUser, ["password"]);
 
         loggedInUser = payload(loggedInUser)
-  
+
         return done(null, loggedInUser);
 
       } catch (e) {
@@ -32,12 +32,14 @@ passport.use(
     })
   );
   
-passport.serializeUser((user, done) => done(null, user._id));
+passport.serializeUser(({ user }, done) => done(null, user._id));
 
 passport.deserializeUser(async (userId, done) => {
     const user = await Worker.findById(userId, "-password").populate("supervisor levelOne levelTwo").lean();
     return done(null, user);
 });
+
+export const passportSession = passport.session();
 
 export const signIn = (req, res) => success(res, 200, req.user);
 
