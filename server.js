@@ -10,8 +10,8 @@ import authMiddleware from "./src/middlewares/authMidlleware.js"
 import notFound from './src/middlewares/notFound.js';
 import { corsOptions } from "./src/middlewares/cors.js";
 import routes from "./src/routes/index.js"
-import { passportSession } from "./src/controllers/auth/index.js";
-import { session } from "./src/middlewares/session.js";
+// import { passportSession } from "./src/controllers/auth/index.js";
+// import { session } from "./src/middlewares/session.js";
 
 dotenv.config();
 
@@ -28,8 +28,8 @@ const server = http.createServer(app);
 app.use(cors(corsOptions));
 app.use(morgan("tiny"));
 app.use(helmet());
-app.use(session); 
-app.use(passportSession);
+// app.use(session); 
+// app.use(passportSession);
 
 // Routes
 app.use(`/api`, authMiddleware, routes);

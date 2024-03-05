@@ -12,9 +12,10 @@ describe("WORKER LOGIN", () => {
         .send({
           email: process.env.WORKER_EMAIL,
           password: process.env.WORKER_PASSWORD
-        }).end((err, res) => {
+        })
+        .end((err, res) => {
             process.env.WORKER_TOKEN = res.body.data.token;
-            process.env.WORKER_ID = res.body.data._id;
+            process.env.WORKER_ID = res.body.data.user._id;
             expect(res.body.message).to.equal("Successful");
             expect(res.body.code).to.equal(200);
             expect(res.body.data).to.have.property('token');

@@ -7,7 +7,7 @@
   "scripts": {
     "dev": "npm run migrate:up && nodemon index.js",
     "pretest": "npm run migrate:up",
-    "test": "cross-env NODE_ENV=test mocha",
+    "test": "cross-env NODE_ENV=test nyc mocha -t 15000",
     "posttest": "npm run migrate:down",
     "prestart": "npm run migrate:up",
     "start": "node index.js",
@@ -43,6 +43,7 @@
     "@faker-js/faker": "^8.4.1",
     "chai": "^5.1.0",
     "nodemon": "^3.1.0",
+    "nyc": "^15.1.0",
     "sinon": "^17.0.1",
     "supertest": "^6.3.4"
   }
