@@ -1,8 +1,6 @@
 import sinon from 'sinon';
-import chai from 'chai';
-import { calculateOtherLevelWorkers, checkIfWorkerWithEmailExists, checkIfWorkerWithIdExists } from '../../../../src/controllers/workers/request';
-
-const { expect } = chai;
+import { expect } from 'chai';
+import { calculateOtherLevelWorkers, checkIfWorkerWithEmailExists, checkIfWorkerWithIdExists } from '../../../../src/controllers/workers/request.js';
 
 describe('WORKER MIDDLEWARE', () => {
     let next;

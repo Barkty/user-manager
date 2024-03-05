@@ -5,7 +5,8 @@ import server from "../../../server.js"
 
 describe("WORKER LOGIN", () => {
     it("should log worker in", (done) => {
-        request(server).post('/api/auth/signin').set('Accept', 'application/json')
+        request(server).post('/api/auth/signin')
+        .set('Accept', 'application/json')
         .expect('Content-Type', /json/)
         .expect(200)
         .send({

@@ -105,7 +105,7 @@ export const calculateOtherLevelWorkers = asyncWrapper(async (req, res, next) =>
         const levelOneWorker = await Worker.findById({ _id: levelOne }).populate("levelOne")
         let levelTwoWorker = null
         let levelThreeWorker = null
-        console.log({levelOneWorker})
+
         if (!levelOneWorker) {
             throw new NotFoundError('Worker not found')
         }

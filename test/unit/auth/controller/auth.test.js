@@ -1,8 +1,6 @@
 import sinon from 'sinon';
-import chai from 'chai';
-import { signIn, signOut } from '../../../../src/controllers/auth.js';
-
-const { expect } = chai;
+import { expect } from 'chai';
+import { signIn, signOut } from '../../../../src/controllers/auth/index.js';
 
 describe('WORKER AUTHCONTROLLER', () => {
     let next;

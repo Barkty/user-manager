@@ -5,7 +5,9 @@ import server from "../../../server.js"
 
 describe("WORKER CREATE", () => {
     it("should create worker", (done) => {
-        request(server).post('/api/worker').set('Accept', 'application/json')
+        request(server).post('/api/worker')
+        .set('Accept', 'application/json')
+        .set('Authorization', `Bearer ${process.env.WORKER_TOKEN}`)
         .expect('Content-Type', /json/)
         .expect(200)
         .send({
@@ -27,8 +29,10 @@ describe("WORKER CREATE", () => {
         })
     })
     
-    it("should create worker", (done) => {
-        request(server).post('/api/worker').set('Accept', 'application/json')
+    it("should not create worker", (done) => {
+        request(server).post('/api/worker')
+        .set('Accept', 'application/json')
+        .set('Authorization', `Bearer ${process.env.WORKER_TOKEN}`)
         .expect('Content-Type', /json/)
         .expect(400)
         .send({

@@ -1,8 +1,6 @@
 import sinon from 'sinon';
-import chai from 'chai';
+import { expect } from 'chai';
 import { createWorker, fetchWorkers, updateWorker } from '../../../../src/controllers/workers/worker.js';
-
-const { expect } = chai;
 
 describe('WORKER CONTROLLER', () => {
     let next;

@@ -10,6 +10,7 @@ passport.use(
     new LocalStrategy({ usernameField: "email" }, async (email, password, done) => {
       try {
         const user = await Worker.findOne({ email }).lean();
+
         if (!user) return done({ message: "User does not exist" });
 
         const isPasswordCorrect = await comparePassword(password, user.password);
@@ -21,7 +22,6 @@ passport.use(
         let loggedInUser = await Worker.findOne({ email }).populate("supervisor levelOne levelTwo").lean();
   
         loggedInUser = removePropertiesFromObject(loggedInUser, ["password"]);
-
         loggedInUser = payload(loggedInUser)
 
         return done(null, loggedInUser);
@@ -41,7 +41,9 @@ passport.deserializeUser(async (userId, done) => {
 
 export const passportSession = passport.session();
 
-export const signIn = (req, res) => success(res, 200, req.user);
+export const signIn = (req, res) => {
+  success(res, 200, req.user)
+};
 
 export const signOut = asyncWrapper(async (req, res) => {
   req.logOut((err) => {

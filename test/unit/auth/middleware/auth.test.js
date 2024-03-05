@@ -1,9 +1,7 @@
 import sinon from 'sinon';
-import chai from 'chai';
+import { expect } from 'chai';
 import { validateUsersAuthRequest } from '../../../../src/controllers/auth/request.js';
 import authMiddleware from '../../../../src/middlewares/authMidlleware.js';
-
-const { expect } = chai;
 
 describe('WORKER AUTH MIDDLEWARE', () => {
     let next;
