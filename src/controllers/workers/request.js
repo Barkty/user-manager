@@ -3,30 +3,41 @@ import { error } from "../../helpers/response.js";
 import asyncWrapper from "../../middlewares/async.js";
 import Worker from "../../models/worker.js";
 import { BadRequestError, NotFoundError } from "../../utils/error/index.js";
+import BaseSchemaValidator from "../../middlewares/validator.js";
 
-export const createWorkerSchema = Joi.object({
-    levelOne: Joi.string().required(),
-    firstName: Joi.string().required(),
-    lastName: Joi.string().required(),
-    email: Joi.string().email().required(),
-    street: Joi.string(),
-    location: Joi.string(),
-    iban: Joi.string().length(12),
-    password: Joi.string().min(8),
-    supervisor: Joi.string(),
-    isSuperCommissionApproved: Joi.boolean()
-})
-
-export const updateWorkerSchema = Joi.object({
-    levelOne: Joi.string().required(),
-    firstName: Joi.string(),
-    lastName: Joi.string(),
-    street: Joi.string(),
-    location: Joi.string(),
-    iban: Joi.string().length(12),
-    supervisor: Joi.string(),
-    isSuperCommissionApproved: Joi.boolean()
-})
+export default class WorkerValidator extends BaseSchemaValidator {
+    static async validateRegister(req, res, next) {
+        const schema = Joi.object({
+            levelOne: Joi.string().required(),
+            firstName: Joi.string().required(),
+            lastName: Joi.string().required(),
+            email: Joi.string().email().required(),
+            street: Joi.string(),
+            location: Joi.string(),
+            iban: Joi.string().length(12),
+            password: Joi.string().min(8),
+            supervisor: Joi.string(),
+            isSuperCommissionApproved: Joi.boolean()
+        });
+    
+        await BaseSchemaValidator.baseValidator(schema, req, res, next, 'body');
+    }
+    
+    static async validateUpdateWorker(req, res, next) {
+        const schema = Joi.object({
+            levelOne: Joi.string().required(),
+            firstName: Joi.string(),
+            lastName: Joi.string(),
+            street: Joi.string(),
+            location: Joi.string(),
+            iban: Joi.string().length(12),
+            supervisor: Joi.string(),
+            isSuperCommissionApproved: Joi.boolean()
+        });
+    
+        await BaseSchemaValidator.baseValidator(schema, req, res, next, 'body');
+    }
+}
 
 export const fetchWorkerSchema = Joi.object({
     name: Joi.string(),

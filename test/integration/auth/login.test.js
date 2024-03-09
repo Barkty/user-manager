@@ -32,8 +32,9 @@ describe("WORKER LOGIN", () => {
           mail: process.env.WORKER_EMAIL,
           password: process.env.WORKER_PASSWORD
         }).end((err, res) => {
-            expect(res.body.message).to.equal("Email is required");
-            expect(res.body.code).to.equal(400);
+            console.log('RES:: ', res.body)
+            expect(res.body.data.message).to.equal('Email is required');
+            expect(res.body.data.status).to.equal(400);
             done()
         })
     })

@@ -42,6 +42,7 @@ import { BadRequestError, NotFoundError } from "../../utils/error/index.js";
 
 export const signIn = asyncWrapper(async (req, res) => {
   try {
+    console.log('BODY:: ', req.body)
     const { body: { email, password } } = req
 
     const user = await Worker.findOne({ email }).lean();

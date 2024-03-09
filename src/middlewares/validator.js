@@ -1,4 +1,5 @@
 import { createValidator } from "express-joi-validation";
+import { error } from "../helpers/response.js";
 
 export const validation = createValidator()
 
@@ -8,6 +9,8 @@ class BaseSchemaValidator {
         switch (type) {
           case 'body':
             data = req.body = await schema.validateAsync(req.body);
+            console.log('DATA: ', data)
+            console.log('DATA-B: ', req.body)
             break;
           case 'query':
             data = req.query = await schema.validateAsync(req.query);
@@ -27,6 +30,15 @@ class BaseSchemaValidator {
           this.validationErrorManager(req, res, err);
         }
     }
+
+    static validationErrorManager(req, res, err) {
+        const message = err.message.replace(/["]/gi, '');
+        return error(res, 400, err, {
+          message,
+          status: 400,
+          err,
+        });
+      }
 }
 
 export default BaseSchemaValidator;
