@@ -14,6 +14,7 @@ describe("WORKER LOGIN", () => {
           password: process.env.WORKER_PASSWORD
         })
         .end((err, res) => {
+            console.log(res.body)
             process.env.WORKER_TOKEN = res.body.data.token;
             process.env.WORKER_ID = res.body.data.user._id;
             expect(res.body.message).to.equal("Successful");

@@ -63,6 +63,7 @@ export const signIn = asyncWrapper(async (req, res) => {
     return success(res, 200, loggedInUser)
 
   } catch (e) {
+    console.log('ERR:: ', e)
     return error(res, e?.statusCode || 500, e)
   }
 });
