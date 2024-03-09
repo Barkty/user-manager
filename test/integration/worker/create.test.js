@@ -2,8 +2,11 @@ import { expect } from 'chai';
 import request from 'supertest';
 import { faker } from '@faker-js/faker';
 import server from "../../../server.js"
+import dotenv from 'dotenv';
 
-describe("WORKER CREATE", () => {
+dotenv.config()
+
+describe("G27 CREATE", () => {
     it("should create worker", (done) => {
         request(server).post('/api/worker')
         .set('Accept', 'application/json')
@@ -11,15 +14,16 @@ describe("WORKER CREATE", () => {
         .expect('Content-Type', /json/)
         .expect(200)
         .send({
-          email: process.env.WORKER_EMAIL,
-          password: process.env.WORKER_PASSWORD,
-          firstName: process.env.WORKER_FIRSTNAME,
-          lastName: process.env.WORKER_LASTNAME,
-          levelOne: process.env.WORKER_LEVELONE,
-          supervisor: process.env.WORKER_SUPERVISOR,
-          isSuperCommissionApproved: process.env.WORKER_APPROVED,
+          email: process.env.G27_EMAIL,
+          password: process.env.G27_PASSWORD,
+          firstName: process.env.G27_FIRSTNAME,
+          lastName: process.env.G27_LASTNAME,
+          levelOne: process.env.G27_LEVELONE,
+          supervisor: process.env.G27_SUPERVISOR,
+          isSuperCommissionApproved: process.env.G27_APPROVED,
           iban: faker.finance.accountNumber(12)
         }).end((err, res) => {
+            console.log('CREATE:: ', res.body)
             process.env.WORKER_TOKEN = res.body.data.token;
             process.env.WORKER_ID = res.body.data._id;
             expect(res.body.message).to.equal("Successful");
@@ -36,16 +40,17 @@ describe("WORKER CREATE", () => {
         .expect('Content-Type', /json/)
         .expect(400)
         .send({
-          mail: process.env.WORKER_EMAIL,
-          password: process.env.WORKER_PASSWORD,
-          firstName: process.env.WORKER_FIRSTNAME,
-          lastName: process.env.WORKER_LASTNAME,
-          levelOne: process.env.WORKER_LEVELONE,
-          supervisor: process.env.WORKER_SUPERVISOR,
-          isSuperCommissionApproved: process.env.WORKER_APPROVED,
+          mail: process.env.G27_EMAIL,
+          password: process.env.G27_PASSWORD,
+          firstName: process.env.G27_FIRSTNAME,
+          lastName: process.env.G27_LASTNAME,
+          levelOne: process.env.G27_LEVELONE,
+          supervisor: process.env.G27_SUPERVISOR,
+          isSuperCommissionApproved: process.env.G27_APPROVED,
           iban: faker.finance.accountNumber(12)
         }).end((err, res) => {
-            expect(res.body.message).to.equal("email is required");
+            console.log('CREATE22:: ', res.body)
+            expect(res.body.message).to.equal("Email is required");
             expect(res.body.code).to.equal(400);
             done()
         })

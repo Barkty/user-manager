@@ -9,6 +9,7 @@ const error = (res, code, err, data) => {
     return res.status(code).json({
         success: 0,
         message: message.includes("E11000") ? "Duplicate Error: Record Exists" : message,
+        code,
         data
     });
 };

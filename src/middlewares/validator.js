@@ -31,7 +31,7 @@ class BaseSchemaValidator {
 
     static validationErrorManager(req, res, err) {
         const message = err.message.replace(/["]/gi, '');
-        return error(res, 400, err, {
+        return error(res, 400, {
           message,
           status: 400,
           err,

@@ -3,3 +3,5 @@ node_modules
 *.http
 snyk*
 .env
+coverage
+.nyc_output
