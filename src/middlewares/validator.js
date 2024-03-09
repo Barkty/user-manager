@@ -9,8 +9,6 @@ class BaseSchemaValidator {
         switch (type) {
           case 'body':
             data = req.body = await schema.validateAsync(req.body);
-            console.log('DATA: ', data)
-            console.log('DATA-B: ', req.body)
             break;
           case 'query':
             data = req.query = await schema.validateAsync(req.query);

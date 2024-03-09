@@ -3,7 +3,6 @@ import BaseSchemaValidator from "../../middlewares/validator.js";
 
 export default class AuthValidator extends BaseSchemaValidator {
     static async login(req, res, next) {
-        console.log('VAL:: ', req.body)
         const schema = Joi.object({
           email: Joi.string().email().label('Email').required(),
           password: Joi.string().trim().label('Password').required(),

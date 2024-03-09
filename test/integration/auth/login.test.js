@@ -14,7 +14,6 @@ describe("WORKER LOGIN", () => {
           password: process.env.WORKER_PASSWORD
         })
         .end((err, res) => {
-            console.log(res.body)
             process.env.WORKER_TOKEN = res.body.data.token;
             process.env.WORKER_ID = res.body.data.user._id;
             expect(res.body.message).to.equal("Successful");
@@ -32,7 +31,6 @@ describe("WORKER LOGIN", () => {
           mail: process.env.WORKER_EMAIL,
           password: process.env.WORKER_PASSWORD
         }).end((err, res) => {
-            console.log('RES:: ', res.body)
             expect(res.body.data.message).to.equal('Email is required');
             expect(res.body.data.status).to.equal(400);
             done()
@@ -47,6 +45,7 @@ describe("WORKER LOGIN", () => {
           email: faker.internet.email(),
           password: process.env.WORKER_PASSWORD
         }).end((err, res) => {
+            console.log('MEEE::: ', res.body)
             expect(res.body.message).to.equal("User does not exist");
             expect(res.body.code).to.equal(404);
             done()
